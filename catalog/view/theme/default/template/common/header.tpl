@@ -16,87 +16,52 @@
 <?php foreach ($links as $link) { ?>
 <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
 <?php } ?>
-<link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/stylesheet.css" />
-<?php foreach ($styles as $style) { ?>
-<link rel="<?php echo $style['rel']; ?>" type="text/css" href="<?php echo $style['href']; ?>" media="<?php echo $style['media']; ?>" />
-<?php } ?>
-<script type="text/javascript" src="catalog/view/javascript/jquery/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="catalog/view/javascript/jquery/ui/jquery-ui-1.8.16.custom.min.js"></script>
-<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" />
-<script type="text/javascript" src="catalog/view/javascript/common.js"></script>
-<?php foreach ($scripts as $script) { ?>
-<script type="text/javascript" src="<?php echo $script; ?>"></script>
-<?php } ?>
-<!--[if IE 7]> 
-<link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/ie7.css" />
-<![endif]-->
-<!--[if lt IE 7]>
-<link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/ie6.css" />
-<script type="text/javascript" src="catalog/view/javascript/DD_belatedPNG_0.0.8a-min.js"></script>
-<script type="text/javascript">
-DD_belatedPNG.fix('#logo img');
-</script>
-<![endif]-->
-<?php if ($stores) { ?>
-<script type="text/javascript"><!--
-$(document).ready(function() {
-<?php foreach ($stores as $store) { ?>
-$('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></iframe>');
-<?php } ?>
-});
-//--></script>
-<?php } ?>
-<?php echo $google_analytics; ?>
+<script type="text/javascript" src="<?php echo TOWEL_ASSETS_CDN?>/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo TOWEL_ASSETS_CDN?>/scripts/coin-slider.min.js"></script>
+<script type="text/javascript" src="<?php echo TOWEL_ASSETS_CDN?>/scripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="<?php echo TOWEL_ASSETS_CDN?>/scripts/jquery.fancybox-thumbs.js"></script>
+<script type="text/javascript" src="<?php echo TOWEL_ASSETS_CDN?>/scripts/towels.js"></script>
+<link href="<?php echo TOWEL_ASSETS_CDN?>/css/style.css" rel="stylesheet" media="screen">
+<link href="<?php echo TOWEL_ASSETS_CDN?>/css/coin-slider-styles.css" rel="stylesheet" media="screen">
+<link href="<?php echo TOWEL_ASSETS_CDN?>/css/css.css" rel="stylesheet" media="screen">
+<link href="<?php echo TOWEL_ASSETS_CDN?>/css/jquery.fancybox.css" rel="stylesheet" media="screen">
+<link href="<?php echo TOWEL_ASSETS_CDN?>/css/jquery.fancybox-thumbs.css" rel="stylesheet" media="screen">
+	
+<title>Bath Towel - Face Towel- Oshitori Towel - Wiper Towel - Duster Towel - <?php echo HTTP_SERVER;?></title>
+    <meta name="keywords" content="Bath Towel - Face Towel- Oshitori Towel - Wiper Towel - Duster Towel - <?php echo HTTP_SERVER;?>"/>
+    <meta name="description" content="Towel"/>
+    <link rel="canonical" href="<?php echo HTTP_SERVER;?>"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div id="container">
-<div id="header">
-  <?php if ($logo) { ?>
-  <div id="logo"><a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></a></div>
-  <?php } ?>
-  <?php echo $language; ?>
-  <?php echo $currency; ?>
-  <?php echo $cart; ?>
-  <div id="search">
-    <div class="button-search"></div>
-    <input type="text" name="search" placeholder="<?php echo $text_search; ?>" value="<?php echo $search; ?>" />
-  </div>
-  <div id="welcome">
-    <?php if (!$logged) { ?>
-    <?php echo $text_welcome; ?>
-    <?php } else { ?>
-    <?php echo $text_logged; ?>
-    <?php } ?>
-  </div>
-  <div class="links"><a href="<?php echo $home; ?>"><?php echo $text_home; ?></a><a href="<?php echo $wishlist; ?>" id="wishlist-total"><?php echo $text_wishlist; ?></a><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a><a href="<?php echo $shopping_cart; ?>"><?php echo $text_shopping_cart; ?></a><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></div>
+<!--<div id="container">  -->
+<div id="top_menu">
+    <div id="top_menu_content">
+        <div id="logo">
+            <a href="/">
+                <img src="<?php echo TOWEL_ASSETS_CDN; ?>/images/logoHeader.png" /></a>
+        </div>
+        <div id="cssmenu">
+            <ul>
+            	<li><a href="/">Homepage</a></li>
+            	<li><a href="<?php echo HTTP_SERVER;?>index.php?route=category">Products</a>
+            		<ul>
+            		   <?php if(isset($towel_cates) && count($towel_cates) > 0):?>
+            		       <?php foreach ($towel_cates as $twc):?>
+            		           <li><a href="<?php echo $twc['href'];?>">
+            		               <?php echo $twc['towel_cate_name'];?></a></li>   
+            		       <?php endforeach;?>
+            		   <?php endif;?>
+                	</ul>
+            	</li>
+            	<li><a href="<?php echo HTTP_SERVER;?>index.php?route=contact-us">Contact us</a></li>
+        	</ul>
+        </div>
+        <div id="flag">
+            <a href="">
+                <img src="<?php echo TOWEL_ASSETS_CDN; ?>/images/en.png" alt="English" /></a> <a href="http://jp.towelofvietnam.com">
+                    <img src="<?php echo TOWEL_ASSETS_CDN; ?>/images/jp.png" alt="Japan" /></a>
+        </div>
+        
+    </div>
 </div>
-<?php if ($categories) { ?>
-<div id="menu">
-  <ul>
-    <?php foreach ($categories as $category) { ?>
-    <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a>
-      <?php if ($category['children']) { ?>
-      <div>
-        <?php for ($i = 0; $i < count($category['children']);) { ?>
-        <ul>
-          <?php $j = $i + ceil(count($category['children']) / $category['column']); ?>
-          <?php for (; $i < $j; $i++) { ?>
-          <?php if (isset($category['children'][$i])) { ?>
-          <li><a href="<?php echo $category['children'][$i]['href']; ?>"><?php echo $category['children'][$i]['name']; ?></a></li>
-          <?php } ?>
-          <?php } ?>
-        </ul>
-        <?php } ?>
-      </div>
-      <?php } ?>
-    </li>
-    <?php } ?>
-  </ul>
-</div>
-<?php } ?>
-<?php if ($error) { ?>
-    
-    <div class="warning"><?php echo $error ?><img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>
-    
-<?php } ?>
-<div id="notification"></div>

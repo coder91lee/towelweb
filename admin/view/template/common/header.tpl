@@ -246,18 +246,16 @@ $(document).ready(function(){
       </li>
        <li id="help"><a class="top">Manage</a>
        <ul>
-          <li><a href ="<?php HTTP_SERVER?>index.php?route=manage/app&token=<?php echo  $this->session->data['token']?>">App</a></li>
-          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/category&token=<?php echo  $this->session->data['token']?>">Category</a></li>
-          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/gallery&token=<?php echo  $this->session->data['token']?>">Gallery</a></li>
-          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/ad&token=<?php echo  $this->session->data['token']?>">Ad</a></li>
-          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/device&token=<?php echo  $this->session->data['token']?>">Device</a></li>
-          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/user&token=<?php echo  $this->session->data['token']?>">User</a></li>
+          <li><a href ="<?php HTTP_SERVER?>index.php?route=manage/towelcate&token=<?php echo  $this->session->data['token']?>">Towel Cate</a></li>
+          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/homeimage&token=<?php echo  $this->session->data['token']?>">Home Image</a></li>
+          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/towelfeedback&token=<?php echo  $this->session->data['token']?>">Towel Feedback</a></li>
+          <li><a  href ="<?php HTTP_SERVER?>index.php?route=manage/towel&token=<?php echo  $this->session->data['token']?>">Towel</a></li>
         </ul>
 
       </li>
       <li id="help"><a class="top"><?php echo $text_help; ?></a>
         <ul>
-          <li><a href="http://www.opencart.com" target="_blank"><?php echo $text_opencart; ?></a></li>
+          <li><a href="" target="_blank">Towel</a></li>
           <li><a href="http://www.opencart.com/index.php?route=documentation/introduction" target="_blank"><?php echo $text_documentation; ?></a></li>
           <li><a href="http://forum.opencart.com" target="_blank"><?php echo $text_support; ?></a></li>
         </ul>

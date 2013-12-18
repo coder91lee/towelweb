@@ -240,7 +240,7 @@ if (isset($request->get['route'])) {
 }
 
 // Dispatch
-$controller->dispatch($action, new Action('error/not_found'));
+$controller->dispatch($action, new Action('common/home'));
 
 // Output
 $response->output();

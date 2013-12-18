@@ -4,20 +4,10 @@ class ControllerCommonHeader extends Controller {
 		$this->data['title'] = $this->document->getTitle();
 		
 		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-			$server = $this->config->get('config_ssl');
+			$this->data['base'] = $this->config->get('config_ssl');
 		} else {
-			$server = $this->config->get('config_url');
+			$this->data['base'] = $this->config->get('config_url');
 		}
-        
-        if (isset($this->session->data['error']) && !empty($this->session->data['error'])) {
-            $this->data['error'] = $this->session->data['error'];
-            
-            unset($this->session->data['error']);
-        } else {
-            $this->data['error'] = '';
-        }
-
-		$this->data['base'] = $server;
 		$this->data['description'] = $this->document->getDescription();
 		$this->data['keywords'] = $this->document->getKeywords();
 		$this->data['links'] = $this->document->getLinks();	 
@@ -26,21 +16,53 @@ class ControllerCommonHeader extends Controller {
 		$this->data['lang'] = $this->language->get('code');
 		$this->data['direction'] = $this->language->get('direction');
 		$this->data['google_analytics'] = html_entity_decode($this->config->get('config_google_analytics'), ENT_QUOTES, 'UTF-8');
-		$this->data['name'] = $this->config->get('config_name');
+
+		// Whos Online
+		if ($this->config->get('config_customer_online')) {
+			$this->load->model('tool/online');
+	
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$ip = $this->request->server['REMOTE_ADDR'];	
+			} else {
+				$ip = ''; 
+			}
+			
+			if (isset($this->request->server['HTTP_HOST']) && isset($this->request->server['REQUEST_URI'])) {
+				$url = 'http://' . $this->request->server['HTTP_HOST'] . $this->request->server['REQUEST_URI'];	
+			} else {
+				$url = '';
+			}
+			
+			if (isset($this->request->server['HTTP_REFERER'])) {
+				$referer = $this->request->server['HTTP_REFERER'];	
+			} else {
+				$referer = '';
+			}
+						
+			$this->model_tool_online->whosonline($ip, $this->customer->getId(), $url, $referer);
+		}
+				
+		$this->language->load('common/header');
 		
+		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+			$server = HTTPS_IMAGE;
+		} else {
+			$server = HTTP_IMAGE;
+		}	
+				
 		if ($this->config->get('config_icon') && file_exists(DIR_IMAGE . $this->config->get('config_icon'))) {
-			$this->data['icon'] = $server . 'image/' . $this->config->get('config_icon');
+			$this->data['icon'] = $server . $this->config->get('config_icon');
 		} else {
 			$this->data['icon'] = '';
 		}
 		
+		$this->data['name'] = $this->config->get('config_name');
+				
 		if ($this->config->get('config_logo') && file_exists(DIR_IMAGE . $this->config->get('config_logo'))) {
-			$this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
+			$this->data['logo'] = $server . $this->config->get('config_logo');
 		} else {
 			$this->data['logo'] = '';
-		}		
-		
-		$this->language->load('common/header');
+		}
 		
 		$this->data['text_home'] = $this->language->get('text_home');
 		$this->data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
@@ -58,41 +80,10 @@ class ControllerCommonHeader extends Controller {
 		$this->data['shopping_cart'] = $this->url->link('checkout/cart');
 		$this->data['checkout'] = $this->url->link('checkout/checkout', '', 'SSL');
 		
-		// Daniel's robot detector
-		$status = true;
-		
-		if (isset($this->request->server['HTTP_USER_AGENT'])) {
-			$robots = explode("\n", trim($this->config->get('config_robots')));
-
-			foreach ($robots as $robot) {
-				if ($robot && strpos($this->request->server['HTTP_USER_AGENT'], trim($robot)) !== false) {
-					$status = false;
-
-					break;
-				}
-			}
-		}
-		
-		// A dirty hack to try to set a cookie for the multi-store feature
-		$this->load->model('setting/store');
-		
-		$this->data['stores'] = array();
-		
-		if ($this->config->get('config_shared') && $status) {
-			$this->data['stores'][] = $server . 'catalog/view/javascript/crossdomain.php?session_id=' . $this->session->getId();
-			
-			$stores = $this->model_setting_store->getStores();
-					
-			foreach ($stores as $store) {
-				$this->data['stores'][] = $store['url'] . 'catalog/view/javascript/crossdomain.php?session_id=' . $this->session->getId();
-			}
-		}
-				
-		// Search		
-		if (isset($this->request->get['search'])) {
-			$this->data['search'] = $this->request->get['search'];
+		if (isset($this->request->get['filter_name'])) {
+			$this->data['filter_name'] = $this->request->get['filter_name'];
 		} else {
-			$this->data['search'] = '';
+			$this->data['filter_name'] = '';
 		}
 		
 		// Menu
@@ -106,7 +97,6 @@ class ControllerCommonHeader extends Controller {
 		
 		foreach ($categories as $category) {
 			if ($category['top']) {
-				// Level 2
 				$children_data = array();
 				
 				$children = $this->model_catalog_category->getCategories($category['category_id']);
@@ -121,7 +111,7 @@ class ControllerCommonHeader extends Controller {
 									
 					$children_data[] = array(
 						'name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $product_total . ')' : ''),
-						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])	
 					);						
 				}
 				
@@ -134,6 +124,95 @@ class ControllerCommonHeader extends Controller {
 				);
 			}
 		}
+		
+		//Dang nhap
+		//$this->data['action'] = $this->url->link('common/home','' , '');
+		$this->load->model('module/user');
+
+		if (isset($this->request->get['user_id'])) {
+			$id =  $this->request->get['user_id'];
+			$u = $this->model_module_user->getUserById($id);
+			$user = array(
+			    'user_name' => $u['user_name'],
+				'full_name' => $u['full_name'],
+			    'image' => HTTP_IMAGE_USER_SMALL . $u['image'],
+			    'href' => HTTP_SERVER . 'index.php?route=user&user_id=' .  $u['user_id'],
+			);
+	    	$this->data['user'] = $user;
+	    	//setcookie("user_id", $user['user_id'], time()+3600 * 12);
+		}
+		else if(isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != ''){
+			$u = $this->model_module_user->getUserById($_COOKIE['user_id']);
+			if(isset($u)&& $u){
+			    $user = array(
+    			    'user_name' => $u['user_name'],
+    				'full_name' => $u['full_name'],
+    			    'image' => HTTP_IMAGE_USER_SMALL . $u['image'],
+    			    'href' => HTTP_SERVER . 'index.php?route=user&user_id=' .  $u['user_id'],
+			    );
+				$this->data['user'] = $user;
+	    		//setcookie("user_id", $user['user_id'], time()+3600 * 12);	
+			}
+		}
+		
+		if($this->request->server['REQUEST_METHOD'] == 'POST')
+		{
+		    $this->load->model('module/user');
+		    
+		    if(isset($this->request->post['formLogin']) 
+		        && $this->request->post['formLogin'] == '10'){
+    			//Check register
+    			//TODO: Mã hóa md5
+    			if(isset($this->request->post['user_name']) && isset($this->request->post['pass'])){
+    				$user= $this->model_module_user->checkRegister($this->request->post);
+    				if($user){
+    					$this->data['user'] = $user;
+    					setcookie("user_id", $user['user_id'], time()+3600 * 12);
+    				}
+    				$user = array(
+        			    'user_name' => $user['user_name'],
+        				'full_name' => $user['full_name'],
+        			    'image' => HTTP_IMAGE_USER_SMALL . $user['image'],
+        			    'href' => HTTP_SERVER . 'index.php?route=user&user_id=' .  $user['user_id'],
+        			);
+        			
+        			$this->data['user'] = $user;
+    			}
+		    }else if(isset($this->request->post['formRegister']) 
+		        && $this->request->post['formRegister'] == '11'){
+		        /**
+		         * Kiem tra xem email rong khong
+		         * Kiem trang xem user va pass co rong khong
+		         */
+		        $this->model_module_user->checkExistUsername($this->request->post['user_name']);
+		        $this->model_module_user->checkExistEmail($this->request->post['email']);
+		        $this->model_module_user->checkExistPassNull($this->request->post['pass']);
+		        
+		        $this->model_module_user->register($this->request->post);
+		        
+		        $user= $this->model_module_user->getUserByUsername($this->request->post['user_name']);
+				if($user){
+					$this->data['user'] = $user;
+					setcookie("user_id", $user['user_id'], time()+3600 * 12);
+				}
+				
+				$user = array(
+        			    'user_name' => $user['user_name'],
+        				'full_name' => $user['full_name'],
+        			    'image' => HTTP_IMAGE_USER_SMALL . $user['image'],
+        			    'href' => HTTP_SERVER . 'index.php?route=user&user_id=' .  $user['user_id'],
+    			);
+    			
+    			$this->data['user'] = $user;
+		    }else{
+		    }
+		}
+		
+		$this->load->model('module/towel_cate');
+		$towel_cates = $this->model_module_towel_cate->getTowelCateList(6);
+        $towel_cates = $this->model_module_towel_cate->showTowelCateList($towel_cates);
+            
+        $this->data['towel_cates'] = $towel_cates;
 		
 		$this->children = array(
 			'module/language',

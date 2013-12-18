@@ -50,7 +50,6 @@ final class Front {
 			
 			$this->error = '';
 		}
-		
 		return $action;
 	}
 }

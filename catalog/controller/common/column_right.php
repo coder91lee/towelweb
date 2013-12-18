@@ -1,6 +1,6 @@
 <?php  
 class ControllerCommonColumnRight extends Controller {
-	protected function index() {
+	public function index() {
 		$this->load->model('design/layout');
 		$this->load->model('catalog/category');
 		$this->load->model('catalog/product');
@@ -40,6 +40,7 @@ class ControllerCommonColumnRight extends Controller {
 		
 		$this->load->model('setting/extension');
 		
+		/*
 		$extensions = $this->model_setting_extension->getExtensions('module');		
 		
 		foreach ($extensions as $extension) {
@@ -56,7 +57,17 @@ class ControllerCommonColumnRight extends Controller {
 					}
 				}
 			}
-		}
+		}*/
+		
+		
+		 /*
+		 *  Author : Sua lai cach lay module
+		 *  Ngay   : 22.11.2012
+		 *  Khong lay module dua vao bang extension va bang setting nua
+		 *  Ma lay module dua vao module va module_in_layout
+		 */
+		
+		$module_data = $this->model_setting_extension->getModuleInLayout($layout_id,4);
 		
 		$sort_order = array(); 
 	  
@@ -68,8 +79,8 @@ class ControllerCommonColumnRight extends Controller {
 		
 		$this->data['modules'] = array();
 		
-		foreach ($module_data as $module) {
-			$module = $this->getChild('module/' . $module['code'], $module['setting']);
+    	foreach ($module_data as $module) {
+			$module = $this->getChild('module/' . $module['code'], $module);
 			
 			if ($module) {
 				$this->data['modules'][] = $module;
