@@ -30,7 +30,7 @@ class ModelModuleTowelCate extends Model {
 	}
 	
 	public function deleteTowelCate($id){
-		$this->db->query("DELETE from " . DB_DATABASE_TOWEL . ".towel_cate where towel_cate_id = $id");
+		$this->db->query("DELETE from " . DB_DATABASE . ".towel_cate where towel_cate_id = $id");
 	}
 	
 	

@@ -12,7 +12,7 @@ class ModelModuleUser extends Model {
     		}
     		else 
     		{
-    			$sql = "SELECT * FROM " . DB_DATABASE_APPSTORE . ".user WHERE user_name = '" 
+    			$sql = "SELECT * FROM " . DB_DATABASE . ".user WHERE user_name = '" 
     			        . $data['user_name'] . "' and pass = '". md5($data['pass']) ."'";
     		
     			$rtn = $this->db->query($sql);
@@ -32,12 +32,12 @@ class ModelModuleUser extends Model {
     }
     
 	public function getUserList() {
-		$query = $this->db->query("SELECT * FROM " . DB_DATABASE_APPSTORE . ".user");
+		$query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".user");
 		return $query->rows;
 	}
 	
 	public  function addUser($data,$image){
-		$this->db->query(" INSERT into " . DB_DATABASE_APPSTORE . ".user set user_name = '" . $this->db->escape($data['user_name']).
+		$this->db->query(" INSERT into " . DB_DATABASE . ".user set user_name = '" . $this->db->escape($data['user_name']).
 						  "',  pass = '" .$this->db->escape(md5($data['pass'])).
 						  "', full_name = '" .$this->db->escape($data['full_name']).
 						  "', birth_day= '" .$this->db->escape($data['birth_day']).
@@ -51,7 +51,7 @@ class ModelModuleUser extends Model {
 	}
 	
 	public  function editUser($user_id,$data,$image){
-		$this->db->query(" UPDATE " . DB_DATABASE_APPSTORE . ".user set user_name = '" . $this->db->escape($data['user_name']).
+		$this->db->query(" UPDATE " . DB_DATABASE . ".user set user_name = '" . $this->db->escape($data['user_name']).
 						  "',  pass = '" .$this->db->escape(md5($data['pass'])).
 						  "', full_name = '" .$this->db->escape($data['full_name']).
 						  "', birth_day= '" .$this->db->escape($data['birth_day']).
@@ -87,7 +87,7 @@ class ModelModuleUser extends Model {
     			return null;
         }elseif ($data['pass'] != '' && $data['repass'] != ''){ //Truong hop muon thay doi mat khau
             if($data['repass'] == $data['pass']){
-                $this->db->query(" UPDATE " . DB_DATABASE_APPSTORE . ".user set pass = '" .$this->db->escape(md5($data['pass'])).
+                $this->db->query(" UPDATE " . DB_DATABASE . ".user set pass = '" .$this->db->escape(md5($data['pass'])).
 						  "', full_name = '" .$this->db->escape($data['full_name']).
                           "', sex= " .$this->db->escape($data['sex']).
              			  ", phone_number = '" .$this->db->escape($data['phone_number']).
@@ -104,7 +104,7 @@ class ModelModuleUser extends Model {
             }
         }
         else{
-            $this->db->query(" UPDATE " . DB_DATABASE_APPSTORE . ".user set full_name = '" .$this->db->escape($data['full_name']).
+            $this->db->query(" UPDATE " . DB_DATABASE . ".user set full_name = '" .$this->db->escape($data['full_name']).
                           "', sex= " .$this->db->escape($data['sex']).
              			  ", phone_number = '" .$this->db->escape($data['phone_number']).
                           "', image = '" .$this->db->escape($image).
@@ -116,25 +116,25 @@ class ModelModuleUser extends Model {
 	}
 			
 	public function deleteUser($user_id) {
-		$this->db->query("DELETE FROM " . DB_DATABASE_APPSTORE . ".user WHERE user_id = $user_id ");
+		$this->db->query("DELETE FROM " . DB_DATABASE . ".user WHERE user_id = $user_id ");
 	}
 	
 	public function getUserById($user_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_DATABASE_APPSTORE . ".user WHERE user_id = $user_id ");
+		$query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".user WHERE user_id = $user_id ");
 	
 		return $query->row;
 	}
 	
 	public function getUserByUsername($username) {
-		$query = $this->db->query("SELECT * FROM " . DB_DATABASE_APPSTORE . ".user WHERE user_name = '" . $this->db->escape($username) . "'");
+		$query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".user WHERE user_name = '" . $this->db->escape($username) . "'");
 	
 		return $query->row;
 	}
 	
     public function checkExistUsername($user_name)
 	{
-		$sql= "SELECT * from " . DB_DATABASE_APPSTORE . ".user where LOWER(user_name) = '" . strtolower($user_name) ."'";
-		$sql1= "SELECT * from " . DB_DATABASE_APPSTORE . ".user where user_name= '$user_name'";
+		$sql= "SELECT * from " . DB_DATABASE . ".user where LOWER(user_name) = '" . strtolower($user_name) ."'";
+		$sql1= "SELECT * from " . DB_DATABASE . ".user where user_name= '$user_name'";
 		$qry = $this->db->query($sql1);			
 		
 		if($qry->num_rows >0 )		
@@ -153,7 +153,7 @@ class ModelModuleUser extends Model {
 	
 	public function checkExistEmail($email)
 	{
-		$sql1= "SELECT * from " . DB_DATABASE_APPSTORE . ".user where email= '$email'";
+		$sql1= "SELECT * from " . DB_DATABASE . ".user where email= '$email'";
 		$qry = $this->db->query($sql1);	
 		if($qry->num_rows >0 )		
 		{	
@@ -197,7 +197,7 @@ class ModelModuleUser extends Model {
 	}
 	
 	public function register($data){
-	    $this->db->query(" INSERT into " . DB_DATABASE_APPSTORE . ".user set user_name = '" . $this->db->escape($data['user_name']).
+	    $this->db->query(" INSERT into " . DB_DATABASE . ".user set user_name = '" . $this->db->escape($data['user_name']).
 						  "',  pass = '" .$this->db->escape(md5($data['pass'])).
 						  "', email = '" .$this->db->escape($data['email']).
 						  "', creat_date = "  . time());

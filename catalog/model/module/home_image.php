@@ -1,13 +1,13 @@
 <?php
 class ModelModuleHomeImage extends Model {
 	public function getHomeImageList() {
-//		$query = $this->db->query("SELECT * FROM " . DB_DATABASE_TOWEL . ".home_image");
-		$query = $this->db->query("SELECT * FROM towel.home_image");
+		$query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".home_image");
+//		$query = $this->db->query("SELECT * FROM towel.home_image");
 		return $query->rows;
 	}
 	
     public function getNewHomeImageList($limit) {
-		$query = $this->db->query("SELECT * FROM " . DB_DATABASE_TOWEL . ".home_image order by start_time desc limit $limit");
+		$query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".home_image order by start_time desc limit $limit");
 		return $query->rows;
 	}
 	
@@ -30,12 +30,12 @@ class ModelModuleHomeImage extends Model {
 	}
 
 	public function deleteHomeImage($id){
-		$this->db->query("DELETE from " . DB_DATABASE_TOWEL . ".home_image where home_image_id = $id");
+		$this->db->query("DELETE from " . DB_DATABASE . ".home_image where home_image_id = $id");
 	}
 	
 	
 	public function getHomeImageById($id){
-		$query = $this->db->query("select * from " . DB_DATABASE_TOWEL . ".home_image where home_image_id = $id");
+		$query = $this->db->query("select * from " . DB_DATABASE . ".home_image where home_image_id = $id");
 		return  $query->row;
 	}
 }
