@@ -41,7 +41,7 @@ class ModelModuleTowel extends Model {
 	
 	public function getTowelIMageList($id){
 	    $query = $this->db->query("select * from " . DB_DATABASE . ".towel_image where towel_id = $id");
-		return  $query->row;
+		return  $query->rows;
 	}
 }
 ?>

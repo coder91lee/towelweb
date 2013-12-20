@@ -10,9 +10,9 @@
     	<?php if(isset($list) && count($list) > 0):?>
     		<?php foreach ($list as $towel):?>
                 <li><span class="tile-title">
-                    <a href="<?php echo $towel['towel_name'];?>" class="title">
+                    <a style="cursor: pointer;" href="<?php echo $towel['href'];?>" class="title">
                         <?php echo $towel['towel_name'];?></a></span>
-                    <div href="<?php echo $towel['href'];?>" id="lit6">
+                    <div style="cursor: pointer;" href="<?php echo $towel['href'];?>">
                         <img alt="GL 28x28 300g/dz" 
                         	src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>"
                            style="display: none;">
