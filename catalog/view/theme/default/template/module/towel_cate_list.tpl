@@ -8,14 +8,18 @@
 <div class="live-tile">
     <ul id="plist">
     	<?php if(isset($list) && count($list)):?>
+    		<?php $i = 0;?>
     		<?php foreach ($list as $twc):?>
                 <li><span class="tile-title">
                     <a href="<?php echo $twc['href'];?>" class="title"><?php echo $twc['towel_cate_name']?></a></span>
-                    <div href="<?php echo $twc['href'];?>" id="lit2">
-                    	<img alt="Dt 40x60 52g/pcs U$0.31/pcs(ref.)" 
-                    		src="<?php echo $twc['towel_cate_image'];?>" style="display: block;">
+                    <div href="<?php echo $twc['href'];?>" id="towel-cate-<?php echo $i;?>">
+                    	<img alt="<?php echo $twc['towel_cate_name']?>" 
+                    		src="<?php echo HTTP_IMAGE_TOWEL_CATE_SMALL. $twc['towel_cate_image'];?>" style="display: block;">
+                		<img alt="<?php echo $twc['towel_cate_name']?>" 
+                		src="<?php echo HTTP_IMAGE_TOWEL_CATE_SMALL. $twc['towel_cate_image'];?>" style="display: block;">
             		</div>
                 </li>
+                <?php $i ++;?>
     		<?php endforeach;?>
     	<?php endif;?>
     </ul>

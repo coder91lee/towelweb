@@ -37,7 +37,9 @@
            </div>
             
             <div class="content" id="content_2" style="display: none;">
-             <?php echo html_entity_decode($detail['specification']);?>
+             <?php
+                 echo html_entity_decode($detail['specification']);
+             ?>
             </div>
             <div class="content" id="content_3" style="display: block;">
               <?php echo html_entity_decode($detail['overview']);?>

@@ -43,43 +43,38 @@
     
     	</div>
     </div>
-        <div id="ctl00_MainContent_UcContact1_ctl00_MainContent_UcContact1_RadAjaxPanel1Panel" class="RadAjaxPanel">
-    	<div id="ctl00_MainContent_UcContact1_RadAjaxPanel1">
     		<!-- 2013.1.220.40 -->
             
                 <div id="divForm">
+                <form action="<?php echo HTTP_SERVER . 'index.php?route=contact-us'?>" 
+				method="post" enctype="multipart/form-data" id="formContactUs">
                     <ul>
                         <li>
                             Name (*):</li>
                         <li>
-                            <input type="text" style="width:300px;" id="MainContent_UcContact1_txtFullName" name="ctl00$MainContent$UcContact1$txtFullName">&nbsp;
+                            <input type="text" style="width:300px;" id="MainContent_UcContact1_txtFullName" name="name">&nbsp;
                             <span style="visibility:hidden;" class="spanErr" id="MainContent_UcContact1_rfvFullName">Required</span>
                         </li>
                         <li>
                             Emai (*):</li>
                         <li>
-                            <input type="text" style="width:300px;" id="MainContent_UcContact1_txtEmail" name="ctl00$MainContent$UcContact1$txtEmail">&nbsp;
+                            <input type="text" style="width:300px;" id="MainContent_UcContact1_txtEmail" name="email">&nbsp;
                             <span style="visibility:hidden;" class="spanErr" id="MainContent_UcContact1_rfvEmail">Required</span><span style="visibility:hidden;" class="spanErr" id="MainContent_UcContact1_revEmail">Invalid Email Format</span>
                         </li>
                         <li>
                             Contact Detail (*):</li>
                         <li style="height: 90px">
-                            <textarea style="height:73px;width:309px;" id="MainContent_UcContact1_txtComment" cols="20" rows="2" name="ctl00$MainContent$UcContact1$txtComment"></textarea></li>
+                            <textarea style="height:73px;width:309px;" id="MainContent_UcContact1_txtComment" cols="20" rows="2" name="content"></textarea></li>
                         <li>&nbsp;</li>
                         <li>
-                            <input type="button" id="MainContent_UcContact1_btnSend" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$MainContent$UcContact1$btnSend&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))" value="Send" name="ctl00$MainContent$UcContact1$btnSend">&nbsp;
+                            <input type="button" type="submit" onClick="$('#formContactUs').submit();" value="Send">&nbsp;
                             <input type="button" id="MainContent_UcContact1_btnReset" onclick="this.form.reset();return false;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$MainContent$UcContact1$btnReset&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))" value="Reset" name="ctl00$MainContent$UcContact1$btnReset">
                         </li>
                     </ul>
                     <br>
                     <div class="clear">
                     </div>
+                    </form>
                 </div>
-            
-            
-            
-        
     	</div>
-    </div>
-    </div>
 </div>

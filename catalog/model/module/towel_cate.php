@@ -17,6 +17,7 @@ class ModelModuleTowelCate extends Model {
 			foreach ($list as $towel_cate)
 			{
 				$towel_cateItem = array(
+				'towel_cate_id'    => $towel_cate['towel_cate_id'],
 				'towel_cate_image'    => $towel_cate['towel_cate_image'],
 				'towel_cate_name'    => $towel_cate['towel_cate_name'],
 				'href'  => HTTP_SERVER . 'index.php?route=category&category_id=' .  $towel_cate['towel_cate_id'],

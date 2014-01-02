@@ -84,13 +84,13 @@
           
           <tr>
           		<td>Tổng quan</td>
-          		<td><textarea name="overview" id="content3">
+          		<td><textarea name="overview" id="content2">
           		<?php echo isset($overview) ? $overview : ''; ?></textarea></td>
           	</tr>
           	
           	<tr>
           		<td>Chi tiết</td>
-          		<td><textarea name="specification" id="content2">
+          		<td><textarea name="specification" id="content3">
           		<?php echo isset($specification) ? $specification : ''; ?></textarea></td>
           	</tr>
           	

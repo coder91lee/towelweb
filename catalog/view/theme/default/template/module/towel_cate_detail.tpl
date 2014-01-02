@@ -13,9 +13,10 @@
                     <a style="cursor: pointer;" href="<?php echo $towel['href'];?>" class="title">
                         <?php echo $towel['towel_name'];?></a></span>
                     <div style="cursor: pointer;" href="<?php echo $towel['href'];?>">
-                        <img alt="GL 28x28 300g/dz" 
-                        	src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>"
-                           style="display: none;">
+                        <img alt="<?php echo $towel['towel_name'];?>" 
+                        	src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>">
+                       <img alt="GL 28x28 300g/dz" 
+                    		src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>">
                    </div>
                 </li>
     		<?php endforeach;?>

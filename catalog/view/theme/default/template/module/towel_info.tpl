@@ -18,15 +18,19 @@
 	<div class="box box590 h120 float_r">
         <div class="live-tile">
             <ul id="phome">
+            	<?php $i = 1;?>
 				<?php if(isset($list) && count($list) > 0):?>
 					<?php foreach ($list as $cate):?>
                         <li><span class="tile-title">
-                            <a class="title" href="<?php echo $cat['href'];?>"><?php echo $cate['towel_cate_name'];?></a></span>
-                            	<div id='lit3' href="<?php echo $cate['href'];?>">
+                            <a class="title" href="<?php echo $cate['href'];?>"><?php echo $cate['towel_cate_name'];?></a></span>
+                            	<div id='towel-cate-<?php echo $i;?>' href="<?php echo $cate['href'];?>">
                                     <img src="<?php echo HTTP_IMAGE_TOWEL_CATE_SMALL . $cate['towel_cate_image'];?>"
-                                     alt="Images 2" />
+                                     alt="<?php echo $cate['towel_cate_name'];?>" />
+                                   <img src="<?php echo HTTP_IMAGE_TOWEL_CATE_SMALL . $cate['towel_cate_image'];?>"
+                                	 alt="<?php echo $cate['towel_cate_name'];?>" />
                             </div>
                         </li>
+                        <?php $i ++;?>
                     <?php endforeach;?>
 				<?php endif;?>    
             </ul> 
