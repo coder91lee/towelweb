@@ -29,6 +29,9 @@
     <span class="pageNavHeader">
         Page</span>
     <nav>
-        <a href="products-page-1" class="currentPage">1</a><a href="products-page-2">2</a>
+    	<?php $length = count($list)/ $limit + 1;?>
+    	<?php for($i = 1;$i <= $length;$i ++):?>
+            <a href="/index.php?route=category&page=<?php echo $i;?>" <?php if($i == $page):?>class="currentPage"<?php endif;?>><?php echo $i;?></a>
+    	<?php endfor;?>
 	</nav>
 </div>

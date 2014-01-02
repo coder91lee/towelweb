@@ -15,7 +15,7 @@
                     <div style="cursor: pointer;" href="<?php echo $towel['href'];?>">
                         <img alt="<?php echo $towel['towel_name'];?>" 
                         	src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>">
-                       <img alt="GL 28x28 300g/dz" 
+                       <img alt="<?php echo $towel['towel_name'];?>" 
                     		src="<?php echo HTTP_IMAGE_TOWEL_SMALL . $towel['towel_image'];?>">
                    </div>
                 </li>
@@ -28,6 +28,10 @@
         <span class="pageNavHeader">
             Page</span>
         <nav>
-        <a href="wipe-towel-page-1" class="currentPage">1</a>
+        <?php $length = count($list)/ $limit + 1;?>
+    	<?php for($i = 1;$i <= $length;$i ++):?>
+            <a href="/index.php?route=route=category&category_id=<?php echo $detail['towel_cate_id'];?>&page=<?php echo $i;?>" <?php if($i == $page):?>class="currentPage"<?php endif;?>>
+                <?php echo $i;?></a>
+    	<?php endfor;?>
 	</nav>
     </div>

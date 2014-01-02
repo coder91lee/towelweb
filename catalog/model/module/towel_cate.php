@@ -1,7 +1,7 @@
 <?php
 class ModelModuleTowelCate extends Model {
-	public function getTowelCateList($limit) {
-	    if(isset($limit) && $limit != ''){
+	public function getTowelCateList($limit = 0) {
+	    if(isset($limit) && $limit != 0){
             $query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".towel_cate limit $limit");
 	    }else{
 	        $query = $this->db->query("SELECT * FROM " . DB_DATABASE . ".towel_cate");
